@@ -1,0 +1,40 @@
+﻿@model IEnumerable<GeeksForLessForum.Models.TopicsViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+
+<div>
+    @using (Html.BeginForm("CreateTopic", "Forum"))
+    {
+        <p>
+            <input type="submit" value="create topic" />
+        </p>
+    }
+</div>
+<br/>
+
+<table class="table">
+    <tr>
+        <th>
+            Topic
+        </th>
+    </tr>
+
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Topic)*@
+                    @if (item.Topic != null)
+                    {
+                        @Html.ActionLink(item.Topic, "Topic", new { id = item.Id }) 
+                    }
+                </td>
+            </tr>
+        }
+    }
+</table>

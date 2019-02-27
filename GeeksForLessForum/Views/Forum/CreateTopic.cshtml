@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "CreateTopic";
+}
+
+<h2>Create Topic</h2>
+
+<div style="text-align:center">
+    @using (Html.BeginForm("CreateTopic", "Forum", FormMethod.Post))
+    {
+        <div>
+            <p><b>Topic</b></p>
+            @Html.TextBox("Topic", null, new { style = "width: 500px;", @maxlength = "40" })
+        </div>
+        <br />
+        <div>
+            <p><b>Body</b></p>
+            @Html.TextArea("Body", null, new { style = "width: 500px;", @cols = 35, @rows = 15 })
+        </div>
+        <br />
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    }
+</div>
