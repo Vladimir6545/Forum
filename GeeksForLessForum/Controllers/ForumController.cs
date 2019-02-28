@@ -15,7 +15,7 @@ namespace GeeksForLessForum.Controllers
         public ActionResult Index()
         {
             var topics = new List<TopicsViewModel>();
-            using (var db = Models.ApplicationDbContext.Create())
+            using (var db = ApplicationDbContext.Create())
             {
                 var data = db.Topics.ToList();
 
@@ -41,7 +41,7 @@ namespace GeeksForLessForum.Controllers
         [HttpPost]
         public ActionResult CreateTopic(string topic, string body)
         {
-            using (var db = Models.ApplicationDbContext.Create())
+            using (var db = ApplicationDbContext.Create())
             {
                 Topic top = new Topic
                 {
@@ -58,7 +58,7 @@ namespace GeeksForLessForum.Controllers
         {
             IQueryable data;
             TopicsViewModel top;
-            using (var db = Models.ApplicationDbContext.Create())
+            using (var db = ApplicationDbContext.Create())
             {
                 data = db.Topics.Where(t => t.Id == id);
                 try
@@ -66,6 +66,7 @@ namespace GeeksForLessForum.Controllers
                     top = new TopicsViewModel();
                     top.Topic = data.Cast<Topic>().FirstOrDefault().Header;
                     top.Body = data.Cast<Topic>().FirstOrDefault().Body;
+                    top.Id = data.Cast<Topic>().FirstOrDefault().Id;
                     // top.Messages = data.Cast<Topic>().FirstOrDefault().Message;
                     // topics.Add(top);
                 }
@@ -78,17 +79,45 @@ namespace GeeksForLessForum.Controllers
             return View(top);
         }
 
-        [WebMethod]
-        public ActionResult GetComments()
+        [HttpGet]
+        public PartialViewResult GetComments(int topicId)
         {
-            return View("Hi");
+            List<TopicMessageViewModel> comments = new List<TopicMessageViewModel>();
+            using (var db = ApplicationDbContext.Create())
+            {
+                var commentsEntity = db.Comments.Where(c => c.TopicId == topicId).ToList();
+
+                if (commentsEntity != null)
+                {
+                    foreach (var item in commentsEntity)
+                    {
+                        TopicMessageViewModel comment = new TopicMessageViewModel();
+                        comment.Message = item.Message;
+                        comment.MessagesDate = item.CommentedDate;
+                        comments.Add(comment);
+                    }
+
+                }
+            }
+            return PartialView("~/Views/Shared/_Comments.cshtml", comments);
         }
 
         [HttpPost]
         public ActionResult AddComment(Comment comment)
         {
-            return View();
+            using (var db = ApplicationDbContext.Create())
+            {
+                Comment commentEntity = new Comment
+                {
+                    TopicId = comment.TopicId,
+                    CommentedDate = comment.CommentedDate,
+                    Message = comment.Message
+                };
+                db.Comments.Add(commentEntity);
+                db.SaveChanges();
+            }
+            return RedirectToAction("GetComments", new { topicId = comment.TopicId }); 
         }
-       
+
     }
 }

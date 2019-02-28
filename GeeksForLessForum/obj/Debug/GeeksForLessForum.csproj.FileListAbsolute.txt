@@ -82,3 +82,6 @@ c:\users\vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksF
 C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.csprojResolveAssemblyReference.cache
 C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.addclassComment.resources
 C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.csproj.GenerateResource.Cache
+C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.changeclassComment.resources
+C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.addtableComment.resources
+C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.changetableComment.resources

@@ -208,6 +208,18 @@
     <Compile Include="Migrations\201902271337163_add class Comment.Designer.cs">
       <DependentUpon>201902271337163_add class Comment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902271846378_change class Comment.cs" />
+    <Compile Include="Migrations\201902271846378_change class Comment.Designer.cs">
+      <DependentUpon>201902271846378_change class Comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902271902575_add table Comment.cs" />
+    <Compile Include="Migrations\201902271902575_add table Comment.Designer.cs">
+      <DependentUpon>201902271902575_add table Comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902271921158_change table Comment.cs" />
+    <Compile Include="Migrations\201902271921158_change table Comment.Designer.cs">
+      <DependentUpon>201902271921158_change table Comment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -279,6 +291,7 @@
     <Content Include="Views\Forum\Index.cshtml" />
     <Content Include="Views\Forum\CreateTopic.cshtml" />
     <Content Include="Views\Forum\Topic.cshtml" />
+    <Content Include="Views\Shared\_Comments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -297,6 +310,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201902271337163_add class Comment.resx">
       <DependentUpon>201902271337163_add class Comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902271846378_change class Comment.resx">
+      <DependentUpon>201902271846378_change class Comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902271902575_add table Comment.resx">
+      <DependentUpon>201902271902575_add table Comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902271921158_change table Comment.resx">
+      <DependentUpon>201902271921158_change table Comment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

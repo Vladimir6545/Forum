@@ -13,7 +13,6 @@ namespace GeeksForLessForum.Models
         public string Header { get; set; }
         [MaxLength(1000)]
         public string Body { get; set; }
-        public Comment Comments { get; set; }
     }
     public class Comment
     {
@@ -21,5 +20,6 @@ namespace GeeksForLessForum.Models
         [MaxLength(150)]
         public string Message { get; set; }
         public DateTime CommentedDate { get; set; }
+        public int TopicId { get; set; }
     }
 }

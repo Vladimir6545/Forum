@@ -27,6 +27,7 @@ namespace GeeksForLessForum.Models
         }
 
         public DbSet<Topic> Topics { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public static ApplicationDbContext Create()
         {

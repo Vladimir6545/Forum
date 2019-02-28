@@ -1,0 +1,12 @@
+﻿@model IEnumerable<GeeksForLessForum.Models.TopicMessageViewModel>
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <p><b>@item.MessagesDate</b></p>
+        <p>@item.Message</p>
+    }
+}
+
+ 
