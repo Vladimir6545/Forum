@@ -85,3 +85,6 @@ C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksF
 C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.changeclassComment.resources
 C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.addtableComment.resources
 C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.changetableComment.resources
+C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.adduserIdtotables.resources
+C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.adduserNametoCommenttable.resources
+C:\Users\Vladimir\documents\visual studio 2015\Projects\GeeksForLessForum\GeeksForLessForum\obj\Debug\GeeksForLessForum.Migrations.addrequiredtoTopicmodel.resources

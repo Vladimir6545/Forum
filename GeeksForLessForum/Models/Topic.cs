@@ -9,10 +9,13 @@ namespace GeeksForLessForum.Models
     public class Topic
     {
         public int Id { get; set; }
-        [MaxLength(40)]
+        [Required]
+        [StringLength(40, MinimumLength = 2)]
         public string Header { get; set; }
-        [MaxLength(1000)]
+        [Required]
+        [StringLength(1000, MinimumLength = 1)]
         public string Body { get; set; }
+        public string UserID { get; set; }
     }
     public class Comment
     {
@@ -21,5 +24,7 @@ namespace GeeksForLessForum.Models
         public string Message { get; set; }
         public DateTime CommentedDate { get; set; }
         public int TopicId { get; set; }
+        public string UserID { get; set; }
+        public string UserName { get; set; }
     }
 }

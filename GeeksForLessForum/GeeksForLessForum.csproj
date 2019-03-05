@@ -198,12 +198,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ApplicationDbContext.cs" />
     <Compile Include="Migrations\201902271337163_add class Comment.cs" />
     <Compile Include="Migrations\201902271337163_add class Comment.Designer.cs">
       <DependentUpon>201902271337163_add class Comment.cs</DependentUpon>
@@ -220,6 +218,18 @@
     <Compile Include="Migrations\201902271921158_change table Comment.Designer.cs">
       <DependentUpon>201902271921158_change table Comment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903031730549_add userId to tables.cs" />
+    <Compile Include="Migrations\201903031730549_add userId to tables.Designer.cs">
+      <DependentUpon>201903031730549_add userId to tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903031910457_add userName to Comment table.cs" />
+    <Compile Include="Migrations\201903031910457_add userName to Comment table.Designer.cs">
+      <DependentUpon>201903031910457_add userName to Comment table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903050859079_add required to Topic model.cs" />
+    <Compile Include="Migrations\201903050859079_add required to Topic model.Designer.cs">
+      <DependentUpon>201903050859079_add required to Topic model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -227,9 +237,15 @@
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\TopicsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CommentRepository.cs" />
+    <Compile Include="Repositories\TopicRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\GeeksForLessForum.mdf" />
+    <Content Include="App_Data\GeeksForLessForum_log.ldf">
+      <DependentUpon>GeeksForLessForum.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -264,10 +280,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -292,10 +304,12 @@
     <Content Include="Views\Forum\CreateTopic.cshtml" />
     <Content Include="Views\Forum\Topic.cshtml" />
     <Content Include="Views\Shared\_Comments.cshtml" />
+    <Content Include="Views\Account\ConfirmEmailFailure.cshtml" />
+    <Content Include="Views\Account\Error.cshtml" />
+    <Content Include="Views\Account\ConfirmEmailSend.cshtml" />
+    <Content Include="Views\Forum\AddTopic.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -319,6 +333,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902271921158_change table Comment.resx">
       <DependentUpon>201902271921158_change table Comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903031730549_add userId to tables.resx">
+      <DependentUpon>201903031730549_add userId to tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903031910457_add userName to Comment table.resx">
+      <DependentUpon>201903031910457_add userName to Comment table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903050859079_add required to Topic model.resx">
+      <DependentUpon>201903050859079_add required to Topic model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

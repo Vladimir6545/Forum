@@ -1,8 +1,11 @@
-﻿using GeeksForLessForum.Helpers;
-using GeeksForLessForum.Models;
+﻿using GeeksForLessForum.Models;
+using GeeksForLessForum.Repositories;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services;
@@ -11,112 +14,100 @@ namespace GeeksForLessForum.Controllers
 {
     public class ForumController : Controller
     {
-        // GET: Forum
+        private TopicRepository _topicRepo;
+        private CommentRepository _commentRepo;
+
+        public ForumController()
+        {
+            _topicRepo = new TopicRepository();
+            _commentRepo = new CommentRepository();
+        }
+       
         public ActionResult Index()
         {
-            var topics = new List<TopicsViewModel>();
-            using (var db = ApplicationDbContext.Create())
-            {
-                var data = db.Topics.ToList();
-
-                foreach (var item in data)
-                {
-                    try
-                    {
-                        var top = new TopicsViewModel();
-                        top.Topic = item.Header;
-                        top.Body = item.Body;
-                        top.Id = item.Id;
-                        topics.Add(top);
-                    }
-                    catch (Exception)
-                    {
-                        return null;
-                    }
-
-                }
-            }
+            var topics = _topicRepo.GetAllTopics();
             return View(topics);
         }
         [HttpPost]
-        public ActionResult CreateTopic(string topic, string body)
+        [Authorize(Roles = "Admin, User")]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateTopic()
         {
-            using (var db = ApplicationDbContext.Create())
-            {
-                Topic top = new Topic
-                {
-                    Header = topic,
-                    Body = body
-                };
-                db.Topics.Add(top);
-                db.SaveChanges();
-            }
             return View();
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin, User")]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddTopic(string topic, string body)
+        {
+            if (!String.IsNullOrEmpty(topic) & !String.IsNullOrEmpty(body))
+            {
+                string currentUserId = User.Identity.GetUserId();
+                int userId = _topicRepo.AddTopic(topic, body, currentUserId);
+                if (userId > 0)
+                {
+                    ViewBag.IdTopic = userId;
+                    return View();
+                }
+            }
+            return HttpNotFound();
+        }
+
+        [AllowAnonymous]
         public ActionResult Topic(int id)
         {
-            IQueryable data;
-            TopicsViewModel top;
-            using (var db = ApplicationDbContext.Create())
+            var top = _topicRepo.GetTopic(id);
+            if (top != null)
             {
-                data = db.Topics.Where(t => t.Id == id);
-                try
-                {
-                    top = new TopicsViewModel();
-                    top.Topic = data.Cast<Topic>().FirstOrDefault().Header;
-                    top.Body = data.Cast<Topic>().FirstOrDefault().Body;
-                    top.Id = data.Cast<Topic>().FirstOrDefault().Id;
-                    // top.Messages = data.Cast<Topic>().FirstOrDefault().Message;
-                    // topics.Add(top);
-                }
-                catch (Exception ex)
-                {
-                    return HttpNotFound(ex.Message);
-                }
-
+                return View(top);
             }
-            return View(top);
+            return HttpNotFound();
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public PartialViewResult GetComments(int topicId)
         {
-            List<TopicMessageViewModel> comments = new List<TopicMessageViewModel>();
-            using (var db = ApplicationDbContext.Create())
-            {
-                var commentsEntity = db.Comments.Where(c => c.TopicId == topicId).ToList();
-
-                if (commentsEntity != null)
-                {
-                    foreach (var item in commentsEntity)
-                    {
-                        TopicMessageViewModel comment = new TopicMessageViewModel();
-                        comment.Message = item.Message;
-                        comment.MessagesDate = item.CommentedDate;
-                        comments.Add(comment);
-                    }
-
-                }
-            }
+            var comments = _commentRepo.GetAllComments(topicId);
             return PartialView("~/Views/Shared/_Comments.cshtml", comments);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult AddComment(Comment comment)
         {
-            using (var db = ApplicationDbContext.Create())
+            string currentUserId = User.Identity.GetUserId();
+            string currentUserName = User.Identity.GetUserName();
+            _commentRepo.AddComment(comment, currentUserId, currentUserName);
+            return RedirectToAction("GetComments", new { topicId = comment.TopicId });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult EditComment(Comment comment)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            bool result = _commentRepo.EditComment(comment, currentUserId);
+            if (result)
             {
-                Comment commentEntity = new Comment
-                {
-                    TopicId = comment.TopicId,
-                    CommentedDate = comment.CommentedDate,
-                    Message = comment.Message
-                };
-                db.Comments.Add(commentEntity);
-                db.SaveChanges();
+                return RedirectToAction("GetComments", new { topicId = comment.TopicId });
             }
-            return RedirectToAction("GetComments", new { topicId = comment.TopicId }); 
+            return HttpNotFound();
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult DeleteComment(Comment comment)
+        {
+            string currentUserId = User.Identity.GetUserId();
+            var result = _commentRepo.DeleteComment(comment, currentUserId);
+            if (result)
+            {
+                return RedirectToAction("GetComments", new { topicId = comment.TopicId });
+            }
+            return HttpNotFound();
         }
 
     }

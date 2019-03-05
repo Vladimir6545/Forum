@@ -1,5 +1,4 @@
-﻿using GeeksForLessForum.Helpers;
-using GeeksForLessForum.Models;
+﻿using GeeksForLessForum.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

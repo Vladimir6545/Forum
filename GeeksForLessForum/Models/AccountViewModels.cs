@@ -65,6 +65,10 @@ namespace GeeksForLessForum.Models
     public class RegisterViewModel
     {
         [Required]
+        [StringLength(20, MinimumLength = 2)]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

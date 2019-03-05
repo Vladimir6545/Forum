@@ -8,6 +8,7 @@
 <div>
     @using (Html.BeginForm("CreateTopic", "Forum"))
     {
+        @Html.AntiForgeryToken()
         <p>
             <input type="submit" value="create topic" />
         </p>
