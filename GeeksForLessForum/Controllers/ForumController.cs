@@ -2,13 +2,7 @@
 using GeeksForLessForum.Repositories;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Services;
 
 namespace GeeksForLessForum.Controllers
 {

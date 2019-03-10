@@ -1,9 +1,7 @@
 ﻿using GeeksForLessForum.Models;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
 using System.Linq;
-using System.Web;
 
 namespace GeeksForLessForum.Repositories
 {
@@ -95,7 +93,6 @@ namespace GeeksForLessForum.Repositories
                     return false;
                 }
             }
-            return false;
         }
 
         public bool DeleteComment(Comment comment, string currentUserId)
